@@ -1,0 +1,15 @@
+.splash__screen2 {
+	/* position: absolute; */
+	width: 100%;
+	transition: opacity 4s 3s;
+	opacity: 0;
+}
+
+.splash__screen2__fadingIn {
+	opacity: 1;
+}
+
+
+
+
+

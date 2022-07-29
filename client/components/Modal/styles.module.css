@@ -1,0 +1,71 @@
+/* Styling for my custom modal outside tailwinf */
+.modal {
+	background-color: #fff;
+	width: 85vw;
+	margin: auto;
+	position: fixed;
+	left: 7.5vw;
+	right: 7.5vw;
+	top: 30vh;
+	max-height: 50vh;
+	border-radius: 13px;
+	z-index: 99999999999;
+	overflow-y: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+@media (min-width: 560px) {
+	.modal::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+	.modal::-webkit-scrollbar-thumb {
+		background:  grey;
+		border-radius: 10px;
+		height: 30px;
+	}
+	.modal::-webkit-scrollbar-track {
+		background: transparent;
+		margin-top: 64px;
+		margin-bottom: 40px;
+		margin-right:10px
+	}
+}
+
+@media (max-width: 560px) {
+	.modal::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+	.modal::-webkit-scrollbar-thumb {
+		background:  grey;
+		border-radius: 10px;
+		height: 30px;
+	}
+	.modal::-webkit-scrollbar-track {
+		background: transparent;
+	}
+}
+
+
+.modal__small {
+	max-width: 600px;
+}
+
+.modal__big {
+	max-width: 700px;
+}
+
+.backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 100vw;
+	background-color: rgba(0, 0, 0, 0.4);
+	z-index: 2;
+}
+
+
