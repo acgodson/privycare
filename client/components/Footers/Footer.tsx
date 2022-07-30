@@ -15,7 +15,7 @@ export default function Footer() {
                   href="#"
                   className="text-blueGray-500 hover:text-blueGray-800"
                 >
-                  PrivyCare
+                  PrivyStore
                 </a>
                 .
               </div>

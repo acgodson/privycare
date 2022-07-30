@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 
-
-
 export default function DoctorProfile(props: {
   name: string;
   job: string;
   location: string;
   showModal: boolean;
-  handleModal: () => void
+  handleModal: () => void;
+  onTap: () => void;
 }) {
-
-
-
   return (
     <>
       <div className="relative flex flex-col min-w-full break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -43,7 +39,10 @@ export default function DoctorProfile(props: {
             <div className="flex flex-wrap justify-center">
               <div className="w-full lg:w-10/12 px-4 flex flex-col md:flex-col lg:flex-col justify-around">
                 <button
-                  onClick={() => props.handleModal()}
+                  onClick={() => {
+                    props.handleModal();
+                    props.onTap();
+                  }}
                   className="py-3 mb-2 bg-teal-500 rounded px-2 py-2 font-bold text-blueGray-200 border-none focus-none uppercase"
                 >
                   <i className="fas fa-clock text-blueGray-200"></i> Book
@@ -57,8 +56,6 @@ export default function DoctorProfile(props: {
             </div>
           </div>
         </div>
-
-      
       </div>
     </>
   );

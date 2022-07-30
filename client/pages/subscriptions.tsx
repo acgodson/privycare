@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSession } from "../components/session";
 import DoctorProfile from "../components/Cards/doctorProfile";
-import { getPlans } from "../ethereum";
 //import SearchHeader from "../components/Headers/Search";
 import { URL } from "../config";
-import { CreatorData, formatCreatorData } from "../shared";
-// import { makeStyles } from "@material-ui/core/styles";
-// import InputLabel from "@material-ui/core/InputLabel";
-// import FormControl from "@material-ui/core/FormControl";
-import DatePicker from "react-date-picker";
+import { CreatorData, formatCreatorData, Today } from "../shared";
 
 import Modal from "../components/Modal/modal";
 import { InputField } from "../components/Cards/InputField";
@@ -17,10 +12,11 @@ export default function Subscriptions() {
   const session = useSession();
   const [fetching, setFetching] = useState<boolean>(false);
   const [creators, setCreators] = useState<CreatorData[]>([]);
-
-  // const classes = useStyles();
+  const [planIDs, setPlanIDs] = useState<string[]>([]);
+  const [date, setDate] = useState<string>(Today);
   const [showModal, setshowModal] = useState<boolean>(false);
-  const [value, onChange] = useState(new Date());
+  const [planIndex, setPlanIndex] = useState<number>(0);
+  const plans: CreatorData[] = [];
 
   function handleModal() {
     if (showModal) {
@@ -29,6 +25,10 @@ export default function Subscriptions() {
       setshowModal(true);
     }
   }
+
+  useEffect(() => {
+    console.log(planIndex);
+  }, [planIndex]);
 
   useEffect(() => {
     const fetchPlans = async () => {
@@ -45,6 +45,8 @@ export default function Subscriptions() {
 
           const list = await request.json();
 
+          setPlanIDs(list);
+
           for (var i = 0; i < list.length; i++) {
             // Fetch creators's fields
             const response = await session.privy.get(list[i], [
@@ -54,20 +56,59 @@ export default function Subscriptions() {
               "about",
             ]);
 
+            plans.push(formatCreatorData(response));
+
             if (response) {
               // creators.push(creatorData);
-              setCreators([...creators, formatCreatorData(response)]);
             }
-
-            console.log(creators);
           }
+
+          setCreators(plans);
+          console.log(creators);
         } catch (error) {
           console.error(error);
         }
       }
     };
     fetchPlans();
-  }, [creators, session.privy ]);
+  }, []);
+
+  async function sendNotification() {
+    try {
+      var headers = new Headers();
+      
+      headers.append("Content-Type", "application/json");
+
+      var RequestInit = {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          user_id: [`${planIDs[planIndex]}`],
+          message: "Hello Doctor, my next visit would be on the " + date,
+        }),
+      };
+
+      const request = await fetch(`${URL}/users/send-email`, RequestInit);
+
+      if (!request.ok) {
+        setFetching(false);
+        const error = await request.json();
+        throw Error(error.message);
+      }
+
+      const data = await request.json();
+      alert(data.Details);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  function handleSubmit() {
+    if (showModal) {
+      setshowModal(false);
+    }
+    sendNotification();
+  }
 
   return (
     <>
@@ -78,12 +119,18 @@ export default function Subscriptions() {
               <div className="mx-auto w-full ">
                 <div className="flex flex-row w-full justify-center xl: justify-start">
                   {creators.length > 0 ? (
-                    <ol type="1">
+                    <ol
+                      type="1"
+                      className="flex flex-wrap w-full justify-center xl: justify-start"
+                    >
                       {[
                         creators.map((x, i) => (
                           <li key={i}>
                             <div className=" flex flex-row w-full xl: mb-12 xl:mb-0 px-2">
                               <DoctorProfile
+                                onTap={() => {
+                                 setPlanIndex(i);
+                                }}
                                 name={x.provider}
                                 job={x.title}
                                 location={x.about}
@@ -124,16 +171,16 @@ export default function Subscriptions() {
 
                 <InputField
                   type="date"
-                  value="2018-07-22"
+                  value={date}
                   label={""}
-                  onChanged={() => {}}
+                  onChanged={(e) => setDate(e.target.value)}
                   disabled={false}
                 />
               </div>
 
               <div className="px-6 h-15">
                 <button
-                  onClick={() => handleModal()}
+                  onClick={() => handleSubmit()}
                   className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-teal-500 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg"
                 >
                   Submit Notification
@@ -145,4 +192,4 @@ export default function Subscriptions() {
       </div>
     </>
   );
-};
+}

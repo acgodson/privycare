@@ -21,7 +21,7 @@ const isPresent = (s: string | null | void) => !isBlank(s);
 const buttonStyle =
   "active:bg-teal-400 text-white font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150";
 
-export default function Profile()  {
+export default function Profile() {
   const session = useSession();
   // const router = useRouter();
   // const [showError, setShowError] = useState<boolean>(false);
@@ -76,9 +76,22 @@ export default function Profile()  {
           "zip",
         ]);
 
-        updateUserData(formatUserData(response));
+        if(!editEnabled) {     
+        setUserData( { ...userData, ...formatUserData(response) });
+        }
 
-        // If user is a creator, fetch work profile from privy
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    fetchDataFromPrivy();
+  }, [session.address, session.privy, userData, editEnabled]);
+
+  useEffect(() => {
+    // If user is a creator, fetch work profile from privy
+    async function fetchCreatorDataFromPrivy() {
+      try {
         if (creator) {
           //User is a Creator
           const getCreator = await session.privy.get(session.address, [
@@ -87,15 +100,19 @@ export default function Profile()  {
             "company",
             "about",
           ]);
-          updateCreatorData(formatCreatorData(getCreator));
+          if(!editEnabled) {
+
+             setUserData({ ...creatorData, ...formatUserData(getCreator) });
+           }
+
+         
         }
-      } catch (error) {
-        console.log(error);
+      } catch (e) {
+        console.log(e);
       }
     }
-
-    fetchDataFromPrivy();
-  },[creator, session.address, session.privy, updateUserData, updateCreatorData]);
+    fetchCreatorDataFromPrivy();
+  }, [creator, session.address, session.privy, creatorData, editEnabled]);
 
   async function saveUserData() {
     try {
@@ -134,36 +151,35 @@ export default function Profile()  {
         },
       ]);
 
-   if (creator) {
+      if (creator) {
+        await session.privy.put(session.address, [
+          {
+            field: "provider",
+            value: userData.firstname + " " + userData.lastname,
+          },
 
-     await session.privy.put(session.address, [
-      {
-        field: "provider",
-        value: userData.firstname + " " + userData.lastname,
-      },
-      
-      {
-        field: "title",
-        value: creatorData.title,
-      },
-      {
-        field: "company",
-        value: creatorData.company,
-      },
-      {
-        field: "about",
-        value: creatorData.about,
-      },
-      ])
-   }
+          {
+            field: "title",
+            value: creatorData.title,
+          },
+          {
+            field: "company",
+            value: creatorData.company,
+          },
+          {
+            field: "about",
+            value: creatorData.about,
+          },
+        ]);
+      }
 
-   setEditEnabled(false);
+      setEditEnabled(false);
     } catch (e) {
-    // console.log(e)
+      // console.log(e)
     }
   }
 
-   return (
+  return (
     <>
       <ToastContainer pauseOnHover draggable hideProgressBar={false} />
 
@@ -195,7 +211,7 @@ export default function Profile()  {
       </div>
     </>
   );
-};
+}
 
 function ProfileSettings(props: {
   userData: UserDataInput;
@@ -208,7 +224,6 @@ function ProfileSettings(props: {
   editEnabled: () => void;
   creator: boolean;
 }) {
-
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">

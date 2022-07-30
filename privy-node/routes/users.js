@@ -9,6 +9,7 @@ const client = new PrivyClient(PRIVY_API_KEY, PRIVY_API_SECRET);
 
 const router = express.Router();
 
+
 //Fetching healthcare Providers
 router.get("/", async function (req, res, next) {
   let batchData = await client.getBatch(["title"], {
@@ -23,10 +24,12 @@ router.get("/", async function (req, res, next) {
 });
 
 //Sending Emails
-router.get("/send-email", async function (req, res) {
+router.post("/send-email", async function (req, res) {
   //Get list of email
   const userID = req.body.user_id;
   const message = req.body.message;
+
+  // console.log(userID[0]);
 
   try {
 
@@ -35,7 +38,7 @@ router.get("/send-email", async function (req, res) {
 
     console.log(element);
 
-    client.sendEmail(userID, "New Appointment", message);
+    client.sendEmail(userID, "Next Appointment", message);
   }
 
     return res.send({ Status: "Success", Details: "email sent" });

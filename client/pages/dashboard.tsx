@@ -4,16 +4,12 @@ import { useSession, useCreator } from "../components/session";
 import {
   formatUserData,
   UserDataInput,
-  CreatorData,
-  formatCreatorData,
 } from "../shared";
 import { useRouter } from "next/router";
 import Sidebar from "../components/Sidebar/SideBar";
-import { InputField } from "../components/Cards/InputField";
 import { toast, ToastContent, ToastContainer } from "react-toastify";
 import HeaderStats from "../components/Headers/Header";
 import Subscriptions from "./subscriptions";
-import { FieldInstance } from "@privy-io/privy-browser/dist/fieldInstance";
 
 const isBlank = (s: string | null | void) => s != null && s.trim() === "";
 const isPresent = (s: string | null | void) => !isBlank(s);

@@ -42,7 +42,7 @@ export default function HeaderStats() {
                   statNextValue=""
                   statNextValueColor="text-emerald-500"
                   statDescripiron="Last messge"
-                  statIconName="fas fa-percent"
+                  statIconName="fas fa-inbox"
                   statIconColor="bg-lightBlue-500"
                 />
               </div>

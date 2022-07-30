@@ -75,3 +75,11 @@ export function formatDisplayAddress(address: string) {
   const last = address.slice(address.length - 3, address.length);
   return `${first}...${last}`;
 }
+
+
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, '0');
+var mm = String(today.getMonth() + 1).padStart(2, '0');
+var yyyy = today.getFullYear();
+
+export const Today = yyyy + '-' + mm + '-' +  dd;

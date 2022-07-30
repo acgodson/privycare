@@ -31,13 +31,13 @@ export default function HomeHero(props: { callBack: Function }): JSX.Element {
               <p className="mt-4 text-lg leading-relaxed text-teal-500">
               
                 Get unlimited access to the doctor using your ethereum wallet.
-                <br />
-                <strong>
-                  We&apos;ll keep your records safe and encrypted with
-                </strong>
+              
+              
+                  We&apos;ll keep your records safe and secure on
+            
                 <a
                   href="https://privy.io"
-                  className="ml-1 text-red-500 font-semibold text-decoration-line: underline"
+                  className="ml-2  text-red-500 font-semibold text-decoration-line: underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

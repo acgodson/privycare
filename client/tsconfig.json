@@ -15,7 +15,7 @@
       "jsx": "preserve",
       "incremental": true
     },
-    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/ethereum.js"],
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/ethereum.js", "pages/_document.js", "pages/dashboard.js"],
     "exclude": ["node_modules"]
   }
   
