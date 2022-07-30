@@ -94,7 +94,7 @@ export default function Profile()  {
     }
 
     fetchDataFromPrivy();
-  }, [session]);
+  },);
 
   async function saveUserData() {
     try {

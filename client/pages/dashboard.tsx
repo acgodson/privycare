@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import CardProfile from "../components/Cards/CardProfile";
 import Navbar from "../components/Navbars/HomeNavBar";
 import { useSession, useCreator } from "../components/session";
 import {
@@ -13,8 +12,8 @@ import Sidebar from "../components/Sidebar/SideBar";
 import { InputField } from "../components/Cards/InputField";
 import { toast, ToastContent, ToastContainer } from "react-toastify";
 import HeaderStats from "../components/Headers/Header";
-import DoctorProfile from "../components/Cards/doctorProfile";
-import { Subscriptions } from "./subscriptions";
+import Subscriptions from "./subscriptions";
+
 
 // type content = ToastContent;
 
@@ -97,7 +96,7 @@ export default function Dashboard() {
     }
 
     fetchDataFromPrivy();
-  }, [session]);
+  }, );
 
   async function saveUserData() {
     try {

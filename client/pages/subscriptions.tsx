@@ -13,7 +13,7 @@ import DatePicker from "react-date-picker";
 import Modal from "../components/Modal/modal";
 import { InputField } from "../components/Cards/InputField";
 
-export const Subscriptions = () => {
+export default function Subscriptions() {
   const session = useSession();
   const [fetching, setFetching] = useState<boolean>(false);
   const [creators, setCreators] = useState<CreatorData[]>([]);
@@ -67,7 +67,7 @@ export const Subscriptions = () => {
       }
     };
     fetchPlans();
-  }, []);
+  }, [creators, session.privy ]);
 
   return (
     <>
@@ -96,7 +96,7 @@ export const Subscriptions = () => {
                       ]}
                     </ol>
                   ) : (
-                    <div>Loading Providers</div>
+                    <div>privy-node is offline</div>
                   )}
                 </div>
               </div>

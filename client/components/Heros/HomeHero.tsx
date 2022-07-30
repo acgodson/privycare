@@ -18,7 +18,7 @@ export default function HomeHero(props: { callBack: Function }): JSX.Element {
         <div className="container mx-auto items-center flex flex-wrap">
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
             <div className="privy-logo">
-              <Link href="/">
+              <Link href="/" passHref>
                 {/* <h2>privyCare</h2> */}
 
                 <img className="h-9  mt-3" src="/img/text-logo.svg" alt="..." />
@@ -26,23 +26,22 @@ export default function HomeHero(props: { callBack: Function }): JSX.Element {
             </div>
             <div className="pt-32 sm:pt-0">
               <h2 className="font-bold text-5xl text-blueGray-600">
-                Don't wait till you fall sick.
+                Don&apos;t wait till you fall sick.
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-teal-500">
-                {" "}
+              
                 Get unlimited access to the doctor using your ethereum wallet.
                 <br />
                 <strong>
-                  {" "}
-                  We'll keep your records safe and encrypted with
-                </strong>{" "}
+                  We&apos;ll keep your records safe and encrypted with
+                </strong>
                 <a
                   href="https://privy.io"
                   className="ml-1 text-red-500 font-semibold text-decoration-line: underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {" "}
+                 
                   <strong>Privy</strong>
                 </a>
               </p>

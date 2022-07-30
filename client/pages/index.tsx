@@ -6,7 +6,10 @@ import SplashScreen1 from "../components/WelcomePage/splash_screen1";
 function WelcomePage() {
   const [splashScreen1Showing, setSplashScreen1Showinng] = useState(true);
 
-  function timeOut() {
+  
+  useEffect(() => {
+    
+    function timeOut() {
 
     const fadeSplash = setTimeout(() => {
       setSplashScreen1Showinng(false);
@@ -17,9 +20,8 @@ function WelcomePage() {
     }
   }
 
-  useEffect(() => {
     timeOut();
-  },[]);
+  }, [splashScreen1Showing]);
 
   return (
     <>  	
