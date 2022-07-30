@@ -23,9 +23,9 @@ const buttonStyle =
 
 export default function Profile()  {
   const session = useSession();
-  const router = useRouter();
+  // const router = useRouter();
   // const [showError, setShowError] = useState<boolean>(false);
-  const [profileComplete, setProfileComplete] = useState<boolean>(true);
+  // const [profileComplete, setProfileComplete] = useState<boolean>(true);
   // const [avatar, setAvatar] = useState<FieldInstance | null>(null);
   // const [avatarSrc, setAvatarSrc] = useState<string | null>(null);
   const [editEnabled, setEditEnabled] = useState(false);
@@ -75,6 +75,7 @@ export default function Profile()  {
           "state",
           "zip",
         ]);
+
         updateUserData(formatUserData(response));
 
         // If user is a creator, fetch work profile from privy
@@ -94,7 +95,7 @@ export default function Profile()  {
     }
 
     fetchDataFromPrivy();
-  },);
+  },[creator, session.address, session.privy, updateUserData, updateCreatorData]);
 
   async function saveUserData() {
     try {
@@ -156,32 +157,13 @@ export default function Profile()  {
       ])
    }
 
-     
-
-      router.push("/");
+   setEditEnabled(false);
     } catch (e) {
-      const _e = e as string;
-      // setShowError(true);
-      console.log(e);
-      toast.error(_e);
+    // console.log(e)
     }
   }
 
-  async function uploadAvatar(file: File) {
-    try {
-      const avatar = await session.privy.putFile(
-        session.address,
-        "avatar",
-        file
-      );
-      const avatarFileId = avatar.value;
-      updateUserData({ avatar: avatarFileId });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  return (
+   return (
     <>
       <ToastContainer pauseOnHover draggable hideProgressBar={false} />
 
@@ -196,7 +178,6 @@ export default function Profile()  {
                 <ProfileSettings
                   userData={userData}
                   onUpdate={updateUserData}
-                  onAvatarUpdate={uploadAvatar}
                   submitEnabled={submitEnabled()}
                   onSubmit={saveUserData}
                   editDisabled={editEnabled}
@@ -221,14 +202,13 @@ function ProfileSettings(props: {
   creatorData: CreatorData;
   onUpdate: (state: Partial<UserDataInput>) => void;
   onCreate: (state: Partial<CreatorData>) => void;
-  onAvatarUpdate: (avatar: File) => void;
   submitEnabled: boolean;
   editDisabled: boolean;
   onSubmit: () => void;
   editEnabled: () => void;
   creator: boolean;
 }) {
-  console.log(props.creator);
+
   return (
     <>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">

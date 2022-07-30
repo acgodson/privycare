@@ -141,4 +141,7 @@ export default function Features() {
 
 
 
-// We know that health insurance can be confusing, and you probably have a lot of questions. That’s why we recommend speaking to a licensed health insurance agent before enrolling in a plan. Health insurance agents are licensed in their local state to provide advice and help people select the best plan for their unique needs. There is no obligation to get a free health insurance quote, and no cost at any time to use this service.
+// We know that health insurance can be confusing, and you probably have a lot of questions. 
+//That’s why we recommend speaking to a licensed health insurance agent before enrolling in a plan.
+// Health insurance agents are licensed in their local state to provide advice and help people select 
+//the best plan for their unique needs. There is no obligation to get a free health insurance quote, and no cost at any time to use this service.

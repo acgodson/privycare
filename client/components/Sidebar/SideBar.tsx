@@ -1,9 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
 import UserDropdown from "../Dropdowns/UserDropdown";
-import MetaDropdown from "../Dropdowns/MetaDropDown";
 
 export default function Sidebar(props: { user: string }) {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -29,9 +27,7 @@ export default function Sidebar(props: { user: string }) {
           </a>
 
           <ul className="md:hidden items-center flex flex-wrap list-none">
-            <li className="inline-block relative">
-              <MetaDropdown />
-            </li>
+          
             <li className="inline-block relative">
               <UserDropdown openMeta={null} />
             </li>
