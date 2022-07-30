@@ -1,0 +1,65 @@
+{
+  "name": "privyCare",
+  "version": "1.0.0",
+  "description": "Web3 Health Insurance Subscription",
+  "repository": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "5.15.3",
+    "@material-ui/core": "^4.12.4",
+    "@mui/x-date-pickers": "^5.0.0-beta.3",
+    "@popperjs/core": "2.9.1",
+    "@privy-io/privy-browser": "^0.0.1",
+    "@tailwindcss/forms": "0.2.1",
+    "axios": "^0.24.0",
+    "bulma": "^0.9.3",
+    "calendar-link": "^2.2.0",
+    "chart.js": "2.9.4",
+    "color-convert": "^2.0.1",
+    "gulp": "4.0.2",
+    "gulp-append-prepend": "1.0.8",
+    "next": "^12.2.3",
+    "prop-types": "^15.8.1",
+    "react": "17.0.2",
+    "react-datetime": "^3.1.1",
+    "react-dom": "17.0.2",
+    "react-scripts": "4.0.3",
+    "react-toastify": "^7.0.3",
+    "supports-color": "^9.2.2",
+    "tailwindcss": "2.0.4",
+    "web3": "^1.7.4"
+  },
+  "scripts": {
+    "start": "next start",
+    "build": "next build && next export",
+    "dev": "next dev",
+    "lint": "next lint",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run build:tailwind && npm run dev",
+    "build:tailwind": "tailwind build styles/index.css -o styles/tailwind.css"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/node": "17.0.2",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "autoprefixer": "10.2.5",
+    "eslint": "8.5.0",
+    "eslint-config-next": "12.0.7",
+    "postcss": "8.2.8",
+    "typescript": "4.5.4"
+  }
+}
