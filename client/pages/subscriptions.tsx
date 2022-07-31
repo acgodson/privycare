@@ -10,7 +10,7 @@ import { InputField } from "../components/Cards/InputField";
 
 export default function Subscriptions() {
   const session = useSession();
-  const [fetching, setFetching] = useState<boolean>(false);
+  const [fetching, setFetching] = useState<boolean>(true);
   const [creators, setCreators] = useState<CreatorData[]>([]);
   const [planIDs, setPlanIDs] = useState<string[]>([]);
   const [date, setDate] = useState<string>(Today);
@@ -26,14 +26,13 @@ export default function Subscriptions() {
     }
   }
 
-  useEffect(() => {
-    console.log(planIndex);
-  }, [planIndex]);
+  // useEffect(() => {
+  //   console.log(planIndex);
+  // }, [planIndex]);
 
   useEffect(() => {
     const fetchPlans = async () => {
-      setFetching(true);
-      if (creators?.map((x) => x.title.length < 1)) {
+      if (fetching) {
         try {
           const request = await fetch(`${URL}/users`);
 
@@ -57,26 +56,22 @@ export default function Subscriptions() {
             ]);
 
             plans.push(formatCreatorData(response));
-
-            if (response) {
-              // creators.push(creatorData);
-            }
           }
 
           setCreators(plans);
-          console.log(creators);
+          setFetching(false);
         } catch (error) {
           console.error(error);
         }
       }
     };
     fetchPlans();
-  }, []);
+  }, [session.privy]);
 
   async function sendNotification() {
     try {
       var headers = new Headers();
-      
+
       headers.append("Content-Type", "application/json");
 
       var RequestInit = {
@@ -129,7 +124,7 @@ export default function Subscriptions() {
                             <div className=" flex flex-row w-full xl: mb-12 xl:mb-0 px-2">
                               <DoctorProfile
                                 onTap={() => {
-                                 setPlanIndex(i);
+                                  setPlanIndex(i);
                                 }}
                                 name={x.provider}
                                 job={x.title}

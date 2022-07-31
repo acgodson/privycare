@@ -49,7 +49,10 @@ export default function DoctorProfile(props: {
                   Appointment
                 </button>
 
-                <button className=" py-3 bg-blueGray-700 rounded px-2 py-2 font-bold text-blueGray-200 border-none focus-none uppercase">
+                <button 
+                // onClick={null}
+                
+                className=" opacity-0 py-3 bg-blueGray-200 rounded px-2 py-2 font-bold text-blueGray-200 border-none focus-none uppercase">
                   <i className="fas fa-email text-white"></i> Email
                 </button>
               </div>
